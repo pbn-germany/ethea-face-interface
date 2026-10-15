@@ -1,7 +1,7 @@
 # ETHEA Face — Interface Specification v0.3 (draft)
 
 > PBN Germany GmbH, Stuttgart · draft, October 2026 · v1.0 in December 2026.
-> **Goal:** a third party can mount, power, drive and monitor the module without contacting PBN.
+> **Goal:** you can mount, power, drive and monitor the module without ever having to call us.
 > Values marked [E] are design targets, not measurements.
 
 ## 1. Mechanical
@@ -74,39 +74,33 @@
   with examples, URDF with mass properties, calibration and setup protocol, **< 4 h installation checklist**,
   benchmark protocol, safety datasheet and declaration of incorporation.
 
-## 5. Benchmark protocol (summary; full version pre-registered at M1)
-- **Cycle:** one onset–apex–offset of one expression from a standard sequence covering every validated AU,
-  with dwell periods for creep. The rig runs the care-dialogue duty cycle of metric 2: on average 1.2 mouth cycles
-  per second, so 1,000 rig hours ≈ 4.3 million cycles.
-- **Stress profile:** vibration replayed from a walking Unitree R1 log (PSD in IEC 60068-2-64 format) plus shocks
-  (IEC 60068-2-27); 5–40 °C, up to 85% RH; IP5X dust exposure of the sealed pod (IEC 60529); daily disinfectant
-  cleaning; a standardised touch and abrasion rig on the skin. Rig positions are randomised across arms.
-- **Arms (identical hardware):** A = published Morpheus control method, version-pinned, re-fitted only to the
-  actuator map; the independent lab audits the port for competence (tracking error on the reference expressions)
-  and hash-registers it before the first cycle. A' = A plus a neutral rest pose between expressions. B = ETHEA Face strain-aware control.
-- **Same expression in all arms:** delivered landmark amplitude per AU is measured by the external camera rig;
-  all three arms are held to the same delivered amplitude per AU (±3%), checked at every milestone and corrected
-  by the commanded intensity, so no arm can gain life by expressing less.
-- **Primary end point:** skin failure — skin tear, anchor release, or loss of an action unit caused by skin or
-  anchor; the cause is decided by the independent lab. Failed actuators are replaced and the test continues; arm B
-  may not need more actuator replacements than arm A. **Reported alongside:** all-cause life incl. actuators.
-- **Estimator (one, pre-registered):** Weibull model with a common shape parameter across arms, fitted by maximum
-  likelihood with run-outs as censored data; the ratio of characteristic lives is the result. **Success:** B/A ≥ 10
-  and B/A' ≥ 3 (point estimate; if B has no failures, the 80% lower bound), with the 80% lower bound always reported.
-  No step-stress for the ratio.
-- **Prediction before data:** the fatigue exponent F of our silicone is measured on coupons in month 2; with the
-  FEM-predicted strain reduction it gives the expected ratio (life ∝ strain^-2F, Gent, Lindley and Thomas 1964;
-  halving peak strain gives 4–16× for F = 1–2), recorded before any head fails.
-- **Statistical power:** 3 heads per arm, plus 8 mouth-and-cheek sub-assemblies each for arms A and B from month 3, with the heads.
-  A 10× ratio can be shown within about 5,000 rig hours only if arm A fails within roughly 450 h (about 1.9 million
-  cycles). No published value predicts arm A's life: the only material data (laminated silicone-foam-mesh skin at
-  25% strain, US 11,207,864 B2) are run-outs after 1.4–4.4 million cycles, i.e. a lower bound. Whether arm A fails
-  in time is therefore an open question that we test before Gate 1: the pre-submission run on the reference head,
-  and our own coupon S-N data at 30–50% strain in month 2. Facial strains above 25%, vibration and heat are expected
-  to shorten life, most in the high-strain mouth-and-cheek sub-assemblies [E]. If arm A has not failed, the pre-registered outcome is "not yet
-  informative" and the claim continues in Stage 2.
-- **Statistics for B10:** Weibull analysis with run-outs; B10 is stated as projected, with a lower bound.
-- **Openness:** protocol, vibration profile and raw logs published; any lab can repeat the test.
+## 5. Benchmark protocol (summary; the full text is `docs/benchmark_protocol.md`, pre-registered at M1)
+We measure how long the face keeps its expressions on a working robot. The heads run a fixed expression sequence
+that covers every validated action unit, at 1.2 mouth cycles a second (1,000 rig hours ≈ 4.3 million cycles). They
+do this on a shaker replaying vibration logged on a walking Unitree R1, with IEC 60068-2-27 shocks, 5–40 °C, up to
+85% RH, IP5X dust, daily disinfectant and a touch-and-abrasion rig.
+
+- **Arms (identical hardware):** A runs the published Morpheus control, version-pinned. The independent lab audits
+  our port and hash-registers it. A' is A plus a neutral rest pose. B is our strain-aware control. An external
+  camera rig holds all three to the same delivered expression per action unit (±3%), so no arm can last longer by
+  doing less.
+- **Failure:** the skin tears, an anchor lets go, or an action unit is lost through skin or anchor. The independent
+  lab decides the cause. Failed actuators are replaced, B may not use more of them than A, and all-cause life is
+  reported too.
+- **Statistics:** one pre-registered Weibull model with a common shape parameter. Heads still running count as
+  censored. The 80% lower bound is always reported.
+- **Stage 1 success (Jury Session 2):** we measure the peak skin strain of A and B on the heads with digital image
+  correlation. Silicone coupons are cycled to failure at those two strains (40 °C, 85% RH, n ≥ 10 per level,
+  about 5 Hz). Coupon life at B's strain must be ≥ 10× that at A's.
+- **Stage 2 success (whole heads):** B/A ≥ 10 and B/A' ≥ 3.
+- **Why coupons in Stage 1:** a whole-head 10× shows within ~5,000 rig hours only if A fails within ~450 h. The only
+  published data (US 11,207,864 B2, flat skin at 25% strain) are run-outs at 1.4–4.4 million cycles, so nobody can
+  promise that. If A's heads are still running at month 10, the whole-head ratio is "not yet informative", with
+  its lower bound, and the test continues.
+- **Prediction first:** F is measured on coupons in month 2 and the strain cut on heads in month 3. Since life
+  ∝ strain^-2F (Gent, Lindley and Thomas 1964), the predicted ratio is on record before any head fails. FEM is
+  for design only.
+- **Openness:** protocol, vibration profile and raw logs are public; any lab can rerun the test.
 
 ## 6. Thermal budget (design target)
 ≤ 40 W mean [E], dissipated mainly in the actuator pod and conducted to the flange and the host. Pass criterion in
