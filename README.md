@@ -27,7 +27,7 @@ it returns to a safe state: actuators de-energised, the neck held by brakes, lid
 ## Build the messages
 
 ```bash
-cd ~/ros2_ws/src && git clone <this repository>
+cd ~/ros2_ws/src && git clone https://github.com/pbn-germany/ethea-face-interface.git
 cd ~/ros2_ws && colcon build --packages-select face_module_msgs
 ```
 
