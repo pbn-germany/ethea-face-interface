@@ -1,0 +1,5 @@
+# Software stop to the safe posture. Not a safety function: safety rests on the hardware STO input.
+string reason
+---
+bool success
+string message

@@ -1,0 +1,6 @@
+# Leave the safe-stop state. Accepted only after the self-test passes and the host confirms.
+bool host_confirmed
+---
+bool success
+bool self_test_passed
+string message

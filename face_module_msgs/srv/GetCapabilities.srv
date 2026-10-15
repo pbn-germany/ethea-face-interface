@@ -1,0 +1,8 @@
+---
+string[] supported_aus
+float32 neck_yaw_range_rad
+float32 neck_pitch_range_rad
+float32 neck_roll_range_rad
+float32 neck_max_speed_rad_s
+string firmware_version
+string interface_version        # semantic version of this specification

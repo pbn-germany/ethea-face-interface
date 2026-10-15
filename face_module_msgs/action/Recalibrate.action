@@ -1,0 +1,8 @@
+# Automatic self-calibration after skin replacement (target < 15 min).
+---
+bool success
+uint32 duration_s
+string[] validated_aus
+---
+float32 progress                # 0.0-1.0
+string stage
